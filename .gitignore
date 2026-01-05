@@ -18,3 +18,10 @@ Thumbs.db
 
 # Build artifacts
 web-ext-artifacts/
+
+# Project tracking docs (keep local only)
+*.md
+!README.md
+Important Tasks/
+rules.md
+description.txt
