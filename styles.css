@@ -1,0 +1,148 @@
+/* Akakçe Hover Extension - Styles v2.1 */
+
+/* CSS Variables for theming */
+:root {
+    --akakce-primary: #00a0d2;
+    --akakce-primary-dark: #0088b3;
+    --akakce-gradient: linear-gradient(135deg, #00a0d2 0%, #0077a3 100%);
+    --akakce-text: #ffffff;
+    --akakce-shadow: rgba(0, 160, 210, 0.4);
+}
+
+/* Dark mode detection */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --akakce-primary: #00b8e6;
+        --akakce-primary-dark: #00a0d2;
+        --akakce-gradient: linear-gradient(135deg, #00b8e6 0%, #0088b3 100%);
+        --akakce-shadow: rgba(0, 184, 230, 0.5);
+    }
+}
+
+/* Floating button for product pages */
+.akakce-float-button {
+    position: relative;
+    background: var(--akakce-gradient);
+    color: var(--akakce-text);
+    padding: 12px 16px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px var(--akakce-shadow);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    transition: transform 0.2s, box-shadow 0.2s;
+    animation: akakce-slide-in 0.4s ease-out forwards;
+}
+
+.akakce-float-button:first-child {
+    animation: akakce-slide-in 0.4s ease-out forwards;
+}
+
+.akakce-float-button:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 6px 24px var(--akakce-shadow);
+}
+
+/* Favorite button specific */
+.akakce-fav-button {
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    box-shadow: 0 4px 20px rgba(245, 158, 11, 0.4);
+}
+
+.akakce-fav-button:hover {
+    box-shadow: 0 6px 24px rgba(245, 158, 11, 0.5);
+}
+
+.akakce-fav-button.is-favorite {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    box-shadow: 0 4px 20px rgba(16, 185, 129, 0.4);
+}
+
+.akakce-btn-icon {
+    font-size: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.akakce-btn-text {
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.3;
+    letter-spacing: 0.2px;
+}
+
+/* Tooltip for listing hovers */
+.akakce-tooltip {
+    position: absolute;
+    background: var(--akakce-gradient);
+    color: var(--akakce-text);
+    padding: 10px 16px;
+    border-radius: 10px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    z-index: 10000000;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    transition: transform 0.15s, opacity 0.15s;
+    white-space: nowrap;
+}
+
+.akakce-tooltip:hover {
+    transform: scale(1.05);
+}
+
+.akakce-tooltip-content {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.akakce-tooltip-icon {
+    font-size: 18px;
+}
+
+/* Slide-in animation */
+@keyframes akakce-slide-in {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Subtle pulse animation for attention */
+@keyframes akakce-pulse {
+
+    0%,
+    100% {
+        box-shadow: 0 4px 20px var(--akakce-shadow);
+    }
+
+    50% {
+        box-shadow: 0 4px 30px var(--akakce-shadow), 0 0 0 8px rgba(0, 160, 210, 0.1);
+    }
+}
+
+.akakce-tooltip {
+    animation: akakce-fade-in 0.25s ease-out;
+}
+
+@keyframes akakce-fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

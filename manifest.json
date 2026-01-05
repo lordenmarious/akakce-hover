@@ -1,0 +1,62 @@
+{
+  "manifest_version": 3,
+  "name": "Akakçe Hover Price",
+  "version": "2.2",
+  "description": "Compare prices on Akakçe.com from Amazon, Trendyol, and more",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "akakce-hover@extension.local"
+    }
+  },
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "notifications",
+    "storage"
+  ],
+  "host_permissions": [
+    "*://*.amazon.com.tr/*",
+    "*://*.trendyol.com/*",
+    "*://*.hepsiburada.com/*",
+    "*://*.akakce.com/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "*://*.amazon.com.tr/*",
+        "*://www.trendyol.com/*",
+        "*://www.hepsiburada.com/*"
+      ],
+      "js": [
+        "utils.js",
+        "content.js"
+      ],
+      "css": [
+        "styles.css"
+      ],
+      "run_at": "document_idle",
+      "all_frames": false
+    }
+  ],
+  "background": {
+    "scripts": [
+      "background.js"
+    ]
+  },
+  "action": {
+    "default_popup": "favorites.html",
+    "default_icon": "icon.png",
+    "default_title": "Favoriler"
+  },
+  "commands": {
+    "open-akakce": {
+      "suggested_key": {
+        "default": "Alt+A"
+      },
+      "description": "Open Akakçe price comparison"
+    }
+  },
+  "icons": {
+    "48": "icon.png"
+  }
+}

@@ -1,0 +1,24 @@
+Akakçe Hover Price Extension (v2.2)
+====================================
+
+A Firefox browser extension that displays Akakçe.com price comparisons 
+on Turkish e-commerce sites.
+
+Supported Sites:
+- Amazon.com.tr
+- Trendyol.com
+- Hepsiburada.com
+
+Features:
+- Floating button on product pages → Click to open Akakçe popup
+- Hover tooltips on search listings
+- Keyboard shortcut: Alt+A to instantly open Akakçe
+- Settings page with:
+  - Custom button color picker
+  - Adjustable hover delay (300-1500ms)
+  - Configurable popup size
+
+How It Works:
+Opens Akakçe in a popup window (bypasses bot protection).
+
+Compatible with Firefox (Manifest V3).

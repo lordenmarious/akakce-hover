@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Favoriler</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            width: 320px;
+            min-height: 200px;
+            max-height: 400px;
+            overflow-y: auto;
+            background: #fff;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #00a0d2 0%, #0077a3 100%);
+            color: white;
+            padding: 14px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+        }
+
+        .header h1 {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .count {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+        }
+
+        .empty {
+            text-align: center;
+            padding: 40px 20px;
+            color: #888;
+        }
+
+        .empty-icon {
+            font-size: 48px;
+            margin-bottom: 12px;
+        }
+
+        .favorite-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            border-bottom: 1px solid #f0f0f0;
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+
+        .favorite-item:hover {
+            background: #f9f9f9;
+        }
+
+        .fav-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .fav-title {
+            font-size: 13px;
+            color: #333;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-bottom: 4px;
+        }
+
+        .fav-site {
+            font-size: 11px;
+            color: #888;
+        }
+
+        .fav-delete {
+            width: 28px;
+            height: 28px;
+            border: none;
+            background: #f5f5f5;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.15s;
+        }
+
+        .fav-delete:hover {
+            background: #ffebee;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <h1>⭐ Favorilerim</h1>
+        <span class="count" id="count">0</span>
+    </div>
+
+    <div id="list"></div>
+    <div id="empty" class="empty">
+        <div class="empty-icon">📋</div>
+        <div>Henüz favori ürün yok</div>
+        <div style="margin-top:8px;font-size:12px;">Ürün sayfasında ⭐ butonuna tıkla</div>
+    </div>
+
+    <script src="favorites.js"></script>
+</body>
+
+</html>
