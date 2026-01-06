@@ -39,7 +39,11 @@ Will be available on Firefox Add-ons store.
 
 ## Screenshots
 
-*(Coming soon)*
+### Product Page Buttons
+![Product Page](screenshots/product-page-buttons.png)
+
+### Favorites Popup
+![Favorites](screenshots/favorites-popup.png)
 
 ## Tech Stack
 
