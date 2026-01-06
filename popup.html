@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hover Fiyat Takip</title>
+    <style>
+        :root {
+            --primary: #064E3B;
+            /* Koyu Zümrüt */
+            --bg: #ffffff;
+            --text: #344054;
+            /* Koyu Füme */
+            --text-muted: #667085;
+            --border: #D0D5DD;
+            /* Açık Gri */
+            --radius: 12px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        body {
+            width: 280px;
+            background: var(--bg);
+            color: var(--text);
+            padding: 16px;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .logo {
+            width: 32px;
+            height: 32px;
+            background: var(--primary);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .title {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .menu-button {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 16px;
+            background: #F9FAFB;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .menu-button:hover {
+            background: #f1f3f5;
+            border-color: #98a2b3;
+            transform: translateY(-1px);
+        }
+
+        .menu-button .icon-box {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .menu-button .star {
+            color: #FDB022;
+            font-size: 18px;
+        }
+
+        .footer {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div class="logo">H</div>
+        <div class="title">Hover Fiyat Takip</div>
+    </div>
+
+    <button id="open-favorites" class="menu-button">
+        <div class="icon-box">
+            <span class="star">⭐</span>
+            <span>Favorilerim</span>
+        </div>
+        <span>→</span>
+    </button>
+
+    <div class="footer">
+        Versiyon 2.2 • Hover Price
+    </div>
+
+    <script src="popup.js"></script>
+</body>
+
+</html>

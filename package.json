@@ -1,27 +1,26 @@
 {
-    "name": "akakce-hover",
+    "name": "hover-price-comparison",
     "version": "2.2.0",
-    "description": "A browser extension that shows price comparisons from Akakçe.com on Turkish e-commerce sites",
-    "author": "lordenmarious",
-    "license": "MIT",
+    "description": "A browser extension that shows price comparisons on Turkish e-commerce sites",
+    "main": "background.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
     "repository": {
         "type": "git",
-        "url": "https://github.com/lordenmarious/akakce-hover.git"
+        "url": "https://github.com/lordenmarious/hover-price.git"
     },
     "keywords": [
-        "browser-extension",
-        "firefox",
-        "chrome",
         "price-comparison",
-        "akakce",
-        "turkey",
-        "e-commerce"
+        "shopping",
+        "turkish",
+        "amazon",
+        "trendyol",
+        "hepsiburada"
     ],
-    "scripts": {
-        "lint": "echo 'No linting configured'",
-        "build": "echo 'No build step needed - vanilla JS'"
-    },
-    "engines": {
-        "node": ">=16.0.0"
+    "author": "",
+    "license": "MIT",
+    "dependencies": {
+        "@google/generative-ai": "^0.1.0"
     }
 }

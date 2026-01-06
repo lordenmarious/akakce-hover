@@ -1,4 +1,4 @@
-// Content script for Akakçe Hover Extension v2.2
+// Content script for Hover Price Extension v2.2
 // Cross-browser compatible (Firefox & Chrome)
 
 (function () {
@@ -11,7 +11,7 @@
     let tooltipContainer = null;
     let lastHoveredItem = null;
     let hoverTimeout = null;
-    let akakcePopup = null;
+    let externalPopup = null;
 
     const SETTINGS = {
         hoverDelay: 600,
@@ -22,16 +22,19 @@
     const SITE_CONFIG = {
         'amazon.com.tr': {
             productTitle: '#productTitle',
+            productImage: '#landingImage, #imgBlkFront',
             listingItem: '.s-result-item[data-asin], .s-result-item.s-asin',
             listingTitle: 'h2 a, .a-link-normal .a-text-normal'
         },
         'trendyol.com': {
             productTitle: 'h1.product-title, h1.pr-new-br, h1[class*="product"]',
+            productImage: '.product-image, .product-container img, .gallery-container img',
             listingItem: '.p-card-wrppr, [data-id]',
             listingTitle: '.prdct-desc-cntnr-name span'
         },
         'hepsiburada.com': {
             productTitle: 'h1',
+            productImage: 'img[data-img-name="product-image"], .product-image-wrapper img, img[data-test-id="main-product-image"]',
             listingItem: '[data-test-id="product-card"]',
             listingTitle: 'h3, [data-test-id="product-card-name"]'
         }
@@ -71,8 +74,8 @@
 
         if (api && api.runtime) {
             api.runtime.onMessage.addListener((request) => {
-                if (request.action === "OPEN_AKAKCE") {
-                    triggerAkakceSearch();
+                if (request.action === "OPEN_COMPARISON") {
+                    triggerSearch();
                 }
             });
         }
@@ -82,8 +85,8 @@
         const items = document.querySelectorAll(config.listingItem);
 
         items.forEach(item => {
-            if (item.dataset.akakceInit) return;
-            item.dataset.akakceInit = "1";
+            if (item.dataset.hpInit) return;
+            item.dataset.hpInit = "1";
 
             item.addEventListener('mouseenter', () => {
                 const titleEl = item.querySelector(config.listingTitle);
@@ -123,24 +126,28 @@
         showFloatingButton(searchQuery, rawTitle);
     }
 
-    function triggerAkakceSearch() {
+    function triggerSearch() {
         const titleEl = document.querySelector(config.productTitle);
         if (titleEl) {
             const url = `https://www.akakce.com/arama/?q=${encodeURIComponent(cleanProductTitle(titleEl.innerText.trim()))}`;
-            openAkakcePopup(url);
+            openPopup(url);
         }
     }
 
     function showFloatingButton(searchQuery, fullTitle) {
         if (!searchQuery) return;
 
+        // Cleanup old elements if they exist
+        const oldContainer = document.getElementById('akakce-buttons');
+        if (oldContainer) oldContainer.remove();
+
         const searchUrl = `https://www.akakce.com/arama/?q=${encodeURIComponent(searchQuery)}`;
 
         // Create container
-        let container = document.getElementById('akakce-buttons');
+        let container = document.getElementById('hp-buttons');
         if (!container) {
             container = document.createElement('div');
-            container.id = 'akakce-buttons';
+            container.id = 'hp-buttons';
             container.style.cssText = `
                 position: fixed;
                 bottom: 100px;
@@ -154,25 +161,25 @@
         }
 
         // Search button
-        let searchBtn = document.getElementById('akakce-float-btn');
+        let searchBtn = document.getElementById('hp-float-btn');
         if (!searchBtn) {
             searchBtn = document.createElement('div');
-            searchBtn.id = 'akakce-float-btn';
-            searchBtn.className = 'akakce-float-button';
+            searchBtn.id = 'hp-float-btn';
+            searchBtn.className = 'hp-float-button';
             container.appendChild(searchBtn);
         }
         searchBtn.innerHTML = `
-            <div class="akakce-btn-icon">🔍</div>
-            <div class="akakce-btn-text">Akakçe'de<br>Karşılaştır</div>
+            <div class="hp-btn-icon">🔍</div>
+            <div class="hp-btn-text">Fiyat<br>Karşılaştır</div>
         `;
-        searchBtn.onclick = () => openAkakcePopup(searchUrl);
+        searchBtn.onclick = () => openPopup(searchUrl);
 
         // Favorite button
-        let favBtn = document.getElementById('akakce-fav-btn');
+        let favBtn = document.getElementById('hp-fav-btn');
         if (!favBtn) {
             favBtn = document.createElement('div');
-            favBtn.id = 'akakce-fav-btn';
-            favBtn.className = 'akakce-float-button akakce-fav-button';
+            favBtn.id = 'hp-fav-btn';
+            favBtn.className = 'hp-float-button hp-fav-button';
             container.appendChild(favBtn);
         }
 
@@ -190,14 +197,14 @@
     function updateFavButton(btn, isFavorite, fullTitle, searchQuery) {
         if (isFavorite) {
             btn.innerHTML = `
-                <div class="akakce-btn-icon">⭐</div>
-                <div class="akakce-btn-text">Favoride</div>
+                <div class="hp-btn-icon">⭐</div>
+                <div class="hp-btn-text">Favoride</div>
             `;
             btn.classList.add('is-favorite');
         } else {
             btn.innerHTML = `
-                <div class="akakce-btn-icon">☆</div>
-                <div class="akakce-btn-text">Favoriye<br>Ekle</div>
+                <div class="hp-btn-icon">☆</div>
+                <div class="hp-btn-text">Favoriye<br>Ekle</div>
             `;
             btn.classList.remove('is-favorite');
         }
@@ -218,13 +225,17 @@
                 });
             } else {
                 // Add to favorites
+                const imgEl = document.querySelector(config.productImage);
+                const imageUrl = imgEl ? imgEl.src : '';
+
                 api.runtime.sendMessage({
                     action: "ADD_FAVORITE",
                     product: {
                         title: fullTitle,
                         searchQuery: searchQuery,
                         site: siteName,
-                        url: window.location.href
+                        url: window.location.href,
+                        imageUrl: imageUrl
                     }
                 }).then(() => {
                     updateFavButton(btn, true, fullTitle, searchQuery);
@@ -234,13 +245,17 @@
     }
 
     function showTooltip(query, pos) {
+        // Cleanup old tooltip if it exists
+        const oldTooltip = document.getElementById('akakce-tooltip');
+        if (oldTooltip) oldTooltip.remove();
+
         const searchUrl = `https://www.akakce.com/arama/?q=${encodeURIComponent(cleanProductTitle(query))}`;
 
-        let div = document.getElementById('akakce-tooltip');
+        let div = document.getElementById('hp-tooltip');
         if (!div) {
             div = document.createElement('div');
-            div.id = 'akakce-tooltip';
-            div.className = 'akakce-tooltip';
+            div.id = 'hp-tooltip';
+            div.className = 'hp-tooltip';
             document.body.appendChild(div);
         }
 
@@ -249,28 +264,28 @@
         div.style.display = 'block';
 
         div.innerHTML = `
-            <div class="akakce-tooltip-content">
-                <span class="akakce-tooltip-icon">🔍</span>
-                <span>Akakçe'de Ara</span>
+            <div class="hp-tooltip-content">
+                <span class="hp-tooltip-icon">🔍</span>
+                <span>Fiyat Karşılaştır</span>
             </div>
         `;
-        div.onclick = () => openAkakcePopup(searchUrl);
+        div.onclick = () => openPopup(searchUrl);
 
         tooltipContainer = div;
     }
 
-    function openAkakcePopup(url) {
+    function openPopup(url) {
         const width = SETTINGS.popupWidth;
         const height = SETTINGS.popupHeight;
         const left = window.screenX + window.outerWidth - width - 50;
         const top = window.screenY + 100;
 
-        if (akakcePopup && !akakcePopup.closed) akakcePopup.close();
+        if (externalPopup && !externalPopup.closed) externalPopup.close();
 
-        akakcePopup = window.open(url, 'AkakcePopup',
+        externalPopup = window.open(url, 'PriceComparisonPopup',
             `width=${width},height=${height},left=${left},top=${top},resizable=yes,scrollbars=yes`);
 
-        if (akakcePopup) akakcePopup.focus();
+        if (externalPopup) externalPopup.focus();
     }
 
     init();

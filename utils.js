@@ -4,7 +4,7 @@
 const browserAPI = typeof browser !== 'undefined' ? browser : chrome;
 
 /**
- * Cleans the product title to improve Akakçe search results.
+ * Cleans the product title to improve price search results.
  */
 function cleanProductTitle(title) {
     if (!title) return "";

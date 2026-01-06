@@ -24,4 +24,5 @@ web-ext-artifacts/
 !README.md
 Important Tasks/
 rules.md
-description.txt
+# description.txt (Removed from gitignore to allow updates)
+brand_colors.txt

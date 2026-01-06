@@ -1,11 +1,11 @@
 {
   "manifest_version": 3,
-  "name": "Akakçe Hover Price",
+  "name": "Hover Price Comparison",
   "version": "2.2",
-  "description": "Compare prices on Akakçe.com from Amazon, Trendyol, and more",
+  "description": "Compare prices from Amazon, Trendyol, and more instantly",
   "browser_specific_settings": {
     "gecko": {
-      "id": "akakce-hover@extension.local",
+      "id": "hover-price@extension.local",
       "strict_min_version": "109.0"
     }
   },
@@ -45,7 +45,7 @@
     ]
   },
   "action": {
-    "default_popup": "favorites.html",
+    "default_popup": "popup.html",
     "default_icon": {
       "16": "icons/icon16.png",
       "48": "icons/icon48.png",
@@ -54,11 +54,11 @@
     "default_title": "Favoriler"
   },
   "commands": {
-    "open-akakce": {
+    "open-comparison": {
       "suggested_key": {
         "default": "Alt+A"
       },
-      "description": "Open Akakçe price comparison"
+      "description": "Open price comparison"
     }
   },
   "icons": {
