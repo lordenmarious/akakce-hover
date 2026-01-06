@@ -1,5 +1,5 @@
 {
-    "name": "hover-price-comparison",
+    "name": "fiyat-karsilastir",
     "version": "2.2.0",
     "description": "A browser extension that shows price comparisons on Turkish e-commerce sites",
     "main": "background.js",
@@ -8,7 +8,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/lordenmarious/hover-price.git"
+        "url": "https://github.com/lordenmarious/fiyat-karsilastir.git"
     },
     "keywords": [
         "price-comparison",

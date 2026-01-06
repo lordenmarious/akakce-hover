@@ -1,10 +1,10 @@
 # 📜 Changelog
 
-All notable changes to the **Hover Price Comparison** extension will be documented in this file.
+All notable changes to the **Fiyat Karşılaştır** extension will be documented in this file.
 
 ## [2.2.0] - 2026-01-06
 ### Added
-- **Full Branding Refresh**: Renamed extension to "Hover Price Comparison" for a more professional and independent brand identity.
+- **Full Branding Refresh**: Renamed extension to "Fiyat Karşılaştır" for a more professional and independent brand identity.
 - **Enhanced Favorites Dashboard**: Introduced a dedicated full-page dashboard with **Grid** and **List** view toggles.
 - **Product Thumbnails**: High-quality product images are now captured and displayed in the favorites list.
 - **Chrome MV3 Support**: Optimized architecture using `service_worker` to ensure full compatibility with modern Chromium-based browsers (Chrome, Edge, Opera).

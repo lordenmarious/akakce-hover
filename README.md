@@ -1,4 +1,4 @@
-# Hover Price Comparison 🔍⭐
+# Fiyat Karşılaştır 🔍⭐
 
 A powerful and elegant browser extension that brings instant price comparisons and product tracking to your favorite Turkish e-commerce sites.
 

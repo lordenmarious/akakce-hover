@@ -1,6 +1,6 @@
 # 🚀 Product Roadmap
 
-Vision and future milestones for the **Hover Price Comparison** extension.
+Vision and future milestones for the **Fiyat Karşılaştır** extension.
 
 ## 📅 Immediate Roadmap (Q1 2026)
 

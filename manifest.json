@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Hover Price Comparison",
+  "name": "Fiyat Karşılaştır",
   "version": "2.2",
   "description": "Compare prices from Amazon, Trendyol, and more instantly",
   "browser_specific_settings": {
