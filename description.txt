@@ -12,7 +12,8 @@ Bu eklenti, popüler alışveriş sitelerinde (Amazon, Trendyol, Hepsiburada) ge
 
 Teknik Detaylar:
 - Manifest V3 mimarisi.
-- Cross-browser (Chrome & Firefox) desteği.
+- Chrome ve Firefox (Zen dahil) tam uyumluluk (Service Worker entegrasyonu).
+- Arka plan mesajlaşma sistemi Chrome MV3 standartlarına göre optimize edildi.
 - HTML/CSS/Vanilla JS ile geliştirildi.
 - Google Gemini API (normalizasyon için) entegrasyonu mevcuttur.
-- Otomatik eski sürüm temizleme (ID konflikt önleyici) sistemi.
+- Otomatik eski sürüm temizleme sistemi.

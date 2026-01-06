@@ -209,7 +209,10 @@
             btn.classList.remove('is-favorite');
         }
 
-        btn.onclick = () => {
+        btn.onclick = (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+
             if (btn.classList.contains('is-favorite')) {
                 // Remove from favorites
                 api.runtime.sendMessage({

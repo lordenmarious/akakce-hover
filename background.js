@@ -43,49 +43,46 @@ api.commands.onCommand.addListener((command) => {
 
 // Handle messages
 api.runtime.onMessage.addListener((request, sender, sendResponse) => {
-    if (request.action === "ADD_FAVORITE") {
-        const id = generateId(request.product.title);
-        favorites[id] = {
-            id,
-            title: request.product.title,
-            searchQuery: request.product.searchQuery,
-            site: request.product.site,
-            url: request.product.url,
-            imageUrl: request.product.imageUrl || '',
-            addedAt: Date.now(),
-            lastChecked: null
-        };
-        saveFavorites();
-        console.log("Hover Price: Favorite added:", id);
-        sendResponse({ success: true, id });
-        return true;
-    }
+    // Using an async self-executing function to handle messages robustly
+    (async () => {
+        try {
+            if (request.action === "ADD_FAVORITE") {
+                const id = generateId(request.product.title);
+                favorites[id] = {
+                    id,
+                    title: request.product.title,
+                    searchQuery: request.product.searchQuery,
+                    site: request.product.site,
+                    url: request.product.url,
+                    imageUrl: request.product.imageUrl || '',
+                    addedAt: Date.now(),
+                    lastChecked: null
+                };
+                await saveFavorites();
+                console.log("Hover Price: Favorite added:", id);
+                sendResponse({ success: true, id });
+            } else if (request.action === "REMOVE_FAVORITE") {
+                delete favorites[request.id];
+                await saveFavorites();
+                console.log("Hover Price: Favorite removed:", request.id);
+                sendResponse({ success: true });
+            } else if (request.action === "GET_FAVORITES") {
+                sendResponse({ favorites });
+            } else if (request.action === "IS_FAVORITE") {
+                const id = generateId(request.title);
+                sendResponse({ isFavorite: !!favorites[id], id });
+            } else if (request.action === "PING") {
+                sendResponse({ status: "OK" });
+            } else {
+                sendResponse({ error: "Unknown action" });
+            }
+        } catch (error) {
+            console.error("Hover Price: Message handling error:", error);
+            sendResponse({ error: error.message });
+        }
+    })();
 
-    if (request.action === "REMOVE_FAVORITE") {
-        delete favorites[request.id];
-        saveFavorites();
-        console.log("Hover Price: Favorite removed:", request.id);
-        sendResponse({ success: true });
-        return true;
-    }
-
-    if (request.action === "GET_FAVORITES") {
-        sendResponse({ favorites });
-        return true;
-    }
-
-    if (request.action === "IS_FAVORITE") {
-        const id = generateId(request.title);
-        sendResponse({ isFavorite: !!favorites[id], id });
-        return true;
-    }
-
-    if (request.action === "PING") {
-        sendResponse({ status: "OK" });
-        return true;
-    }
-
-    return false;
+    return true; // Keep the message channel open for the async response
 });
 
 function generateId(title) {

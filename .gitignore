@@ -19,10 +19,7 @@ Thumbs.db
 # Build artifacts
 web-ext-artifacts/
 
-# Project tracking docs (keep local only)
-*.md
-!README.md
-Important Tasks/
-rules.md
+# Project tracking docs (Removed from gitignore to allow updates)
 # description.txt (Removed from gitignore to allow updates)
+brand_colors.txt
 brand_colors.txt
