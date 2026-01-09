@@ -55,6 +55,14 @@
             productImage: '#pdp-gallery .swiper-slide-active img',
             listingItem: '.product-item, .pds, .owl-item .product-item',
             listingTitle: '.prd-title-m'
+        },
+        'incehesap.com': {
+            productTitle: 'h1',
+            productImage: '.swiper-slide-active img, .product-image img',
+            listingItem: 'a.product',
+            listingTitle: 'div.text-sm.font-semibold, [title]',
+            // Gaming Gecesi sayası için özel: ürün başlığı a.product'un title attribute'unda
+            useTitleAttribute: true
         }
     };
 
@@ -114,23 +122,31 @@
             item.dataset.hpInit = "1";
 
             item.addEventListener('mouseenter', () => {
-                const titleEl = item.querySelector(config.listingTitle);
-                if (titleEl && titleEl.innerText) {
-                    const title = titleEl.innerText.trim();
-                    if (!title) return;
+                let title = '';
 
-                    clearTimeout(hoverTimeout);
-                    hoverTimeout = setTimeout(() => {
-                        if (lastHoveredItem === title) return;
-                        lastHoveredItem = title;
-
-                        const rect = titleEl.getBoundingClientRect();
-                        showTooltip(title, {
-                            x: rect.left + window.scrollX,
-                            y: rect.bottom + window.scrollY + 8
-                        });
-                    }, SETTINGS.hoverDelay);
+                // İncehesap için: title attribute'dan al
+                if (config.useTitleAttribute && item.hasAttribute('title')) {
+                    title = item.getAttribute('title').trim();
+                } else {
+                    const titleEl = item.querySelector(config.listingTitle);
+                    if (titleEl && titleEl.innerText) {
+                        title = titleEl.innerText.trim();
+                    }
                 }
+
+                if (!title) return;
+
+                clearTimeout(hoverTimeout);
+                hoverTimeout = setTimeout(() => {
+                    if (lastHoveredItem === title) return;
+                    lastHoveredItem = title;
+
+                    const rect = item.getBoundingClientRect();
+                    showTooltip(title, {
+                        x: rect.left + window.scrollX,
+                        y: rect.bottom + window.scrollY + 8
+                    });
+                }, SETTINGS.hoverDelay);
             });
 
             item.addEventListener('mouseleave', () => {

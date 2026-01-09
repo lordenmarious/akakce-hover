@@ -3,7 +3,8 @@ Hover Price Comparison Project Description
 Bu eklenti, popüler alışveriş sitelerinde (Amazon, Trendyol, Hepsiburada) gezerken ürünlerin diğer platformlardaki fiyatlarını ve karşılaştırmalarını görmenizi sağlar.
 
 Özellikler:
-- Sayfa üzerinde otomatik fiyat arama / karşılaştırma (Amazon, Trendyol, Hepsiburada, Itopya, Vatan, Teknosa).
+- Sayfa üzerinde otomatik fiyat arama / karşılaştırma (Amazon, Trendyol, Hepsiburada, Itopya, Vatan, Teknosa, İncehesap).
+- Gaming Gecesi kampanya sayfası desteği (incehesap.com/gaming-geceleri).
 - Akıllı Kategori Filtreleme: İşlemci, ekran kartı, RAM vb. ürünler otomatik kategorilenir.
 - Ürünleri favorilere ekleme (Ürün fotoğrafı ile birlikte).
 - Favorilerim sayfası (Yeni sekmede açılır, Liste ve Izgara görünümü destekler).

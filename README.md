@@ -49,7 +49,10 @@ Uses advanced keyword-based algorithms to clean product titles and **automatical
 - **Amazon.com.tr**
 - **Trendyol.com**
 - **Hepsiburada.com**
-- *More coming soon...*
+- **Itopya.com**
+- **Vatanbilgisayar.com**
+- **Teknosa.com**
+- **İncehesap.com** (Gaming Gecesi kampanya desteği 🎮)
 
 ---
 
