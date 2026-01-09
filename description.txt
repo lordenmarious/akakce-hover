@@ -4,6 +4,7 @@ Bu eklenti, popüler alışveriş sitelerinde (Amazon, Trendyol, Hepsiburada) ge
 
 Özellikler:
 - Sayfa üzerinde otomatik fiyat arama / karşılaştırma (Amazon, Trendyol, Hepsiburada, Itopya, Vatan, Teknosa).
+- Akıllı Kategori Filtreleme: İşlemci, ekran kartı, RAM vb. ürünler otomatik kategorilenir.
 - Ürünleri favorilere ekleme (Ürün fotoğrafı ile birlikte).
 - Favorilerim sayfası (Yeni sekmede açılır, Liste ve Izgara görünümü destekler).
 - Favori kartlarında Fiyat Karşılaştırma ve Orijinal Mağaza linkleri.
@@ -15,5 +16,6 @@ Teknik Detaylar:
 - Firefox/Zen uyumluluğu için "background.scripts" (Event Pages) kullanılmaktadır.
 - Arka plan sistemi MV3 standartlarına göre optimize edildi.
 - HTML/CSS/Vanilla JS ile geliştirildi.
-- Hibrit Normalleştirme Sistemi (Platforma özel gürültü temizleme ve birim koruma).
+- Hibrit Normalleştirme Sistemi v2.0 (Platforma özel gürültü temizleme + Kategori Filtreleme).
 - Otomatik eski sürüm temizleme sistemi.
+

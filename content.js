@@ -165,9 +165,10 @@
     function triggerSearch() {
         const titleEl = document.querySelector(config.productTitle);
         if (titleEl) {
-            const query = cleanProductTitle(titleEl.innerText.trim());
-            // Removed &hp_popup=1 for native view
-            const url = `https://www.akakce.com/arama/?q=${encodeURIComponent(query)}`;
+            const rawTitle = titleEl.innerText.trim();
+            const query = cleanProductTitle(rawTitle);
+            // Kategori filtreli URL oluştur
+            const url = buildAkakceUrl(rawTitle, query);
             openPopup(url);
         }
     }
@@ -179,8 +180,8 @@
         const oldContainer = document.getElementById('hp-buttons');
         if (oldContainer) oldContainer.remove();
 
-        // Removed &hp_popup=1 for native view
-        const searchUrl = `https://www.akakce.com/arama/?q=${encodeURIComponent(searchQuery)}`;
+        // Kategori filtreli URL oluştur
+        const searchUrl = buildAkakceUrl(fullTitle, searchQuery);
 
         // Create container
         let container = document.getElementById('hp-buttons');
@@ -291,8 +292,8 @@
         const oldTooltip = document.getElementById('akakce-tooltip');
         if (oldTooltip) oldTooltip.remove();
 
-        // Removed &hp_popup=1 for native view
-        const searchUrl = `https://www.akakce.com/arama/?q=${encodeURIComponent(cleanProductTitle(query))}`;
+        // Kategori filtreli URL oluştur
+        const searchUrl = buildAkakceUrl(query, cleanProductTitle(query));
 
         let div = document.getElementById('hp-tooltip');
         if (!div) {

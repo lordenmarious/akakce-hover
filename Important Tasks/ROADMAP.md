@@ -11,7 +11,7 @@ Vision and future milestones for the **Fiyat Karşılaştır** extension.
 - [ ] **Onboarding Experience**: A smooth welcome page for new users explaining shortcuts and features.
 
 ### Phase 2: Intelligence & Expansion
-- [ ] **AI-Powered Normalization**: Refine Gemini AI prompts to handle 99% of complex product titles (e.g., bundles, second-hand mentions).
+- [x] **Category-Based Filtering**: Automatic product category detection for accurate Akakçe searches (işlemci, ekran-karti, ram-bellek, etc.).
 - [ ] **Expanded Marketplace Support**:
     - [ ] n11.com
     - [ ] Pazarama.com

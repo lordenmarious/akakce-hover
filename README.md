@@ -20,8 +20,8 @@ Find prices while you browse. Hover over any product in a listing to see a quick
 Save products you're interested in and access them anytime from your custom dashboard. Supports both **List** and **Grid** views with high-quality product images.
 ![Favorites Dashboard](screenshots/Favorite%20List%20Page.png)
 
-### 4. Smart Title Normalization
-Uses advanced algorithms (and optional Gemini AI) to clean product titles for the most accurate search results.
+### 4. Smart Title Normalization & Category Filtering
+Uses advanced keyword-based algorithms to clean product titles and **automatically detect product categories** (CPU, GPU, RAM, etc.) for pinpoint-accurate search results on Akakçe.
 
 ---
 
@@ -57,7 +57,7 @@ Uses advanced algorithms (and optional Gemini AI) to clean product titles for th
 - **Manifest V3**
 - **Service Worker Architecture** (Chrome & Firefox compatible)
 - **Vanilla JavaScript & CSS**
-- **Google Gemini API** (for title cleanup)
+- **Hybrid Normalization v2.0** (Keyword-based category detection)
 
 ---
 
