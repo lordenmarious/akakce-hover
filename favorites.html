@@ -173,6 +173,16 @@
             transform: rotate(15deg);
         }
 
+        /* Focus Styles for Accessibility */
+        button:focus-visible,
+        a:focus-visible,
+        input:focus-visible,
+        select:focus-visible {
+            outline: 2px solid var(--primary);
+            outline-offset: 2px;
+            box-shadow: 0 0 0 4px rgba(6, 78, 59, 0.2);
+        }
+
         .sort-controls {
             display: flex;
             align-items: center;
@@ -319,7 +329,6 @@
             align-items: center;
             gap: 16px;
             transition: all 0.2s;
-            cursor: pointer;
             position: relative;
         }
 
@@ -517,7 +526,7 @@
                         <span>⊞</span> Izgara
                     </button>
                 </div>
-                <button class="theme-toggle" id="theme-toggle" title="Tema Değiştir">
+                <button class="theme-toggle" id="theme-toggle" title="Tema Değiştir" aria-label="Tema Değiştir">
                     <span class="theme-icon" id="theme-icon">🌙</span>
                 </button>
             </div>
@@ -525,8 +534,8 @@
 
         <div class="search-bar">
             <span class="search-icon">🔍</span>
-            <input type="text" id="search-input" placeholder="Ürün ara..." autocomplete="off">
-            <button id="clear-search" class="clear-btn" style="display: none;">✕</button>
+            <input type="text" id="search-input" placeholder="Ürün ara..." autocomplete="off" aria-label="Favorilerde ara">
+            <button id="clear-search" class="clear-btn" style="display: none;" aria-label="Aramayı temizle">✕</button>
         </div>
 
         <div id="favorites-container" class="list-container">

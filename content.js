@@ -9,7 +9,8 @@
 
     let currentTitle = "";
     let tooltipContainer = null;
-    let lastHoveredItem = null;
+    let lastHoveredItem = null; // Keeps track of the title
+    let lastHoveredDOMElement = null; // Keeps track of the DOM element
     let hoverTimeout = null;
     let externalPopup = null;
 
@@ -156,14 +157,15 @@
 
         // Initial check with extended retry
         checkProductWithRetry(0);
-        setupListingHovers();
+
+        // Setup event delegation
+        setupDelegatedListeners();
 
         // Mutation observer for SPA changes (Debounced)
         let observerTimeout;
         const observer = new MutationObserver(() => {
             clearTimeout(observerTimeout);
             observerTimeout = setTimeout(() => {
-                setupListingHovers();
                 checkProduct();
             }, 500); // 500ms debounce
         });
@@ -178,57 +180,79 @@
         }
     }
 
-    function setupListingHovers() {
-        const items = document.querySelectorAll(config.listingItem);
+    function setupDelegatedListeners() {
+        // Event delegation using mouseover (enters) and mouseout (leaves)
+        // This avoids querySelectorAll and attaching thousands of listeners
+        // Optimization: Reduces memory usage and CPU overhead during DOM mutations (infinite scroll)
 
-        items.forEach(item => {
-            if (item.dataset.hpInit) return;
-            item.dataset.hpInit = "1";
+        document.body.addEventListener('mouseover', (e) => {
+            const item = e.target.closest(config.listingItem);
+            if (!item) return;
 
-            item.addEventListener('mouseenter', () => {
-                let title = '';
-
-                // Önce title attribute'u kontrol et (kategori sayfaları için)
-                if (config.useTitleAttribute && item.hasAttribute('title')) {
-                    title = item.getAttribute('title').trim();
-                }
-
-                // Fallback: Gaming Gecesi için nested p tag veya listingTitle seçicisi
-                if (!title) {
-                    const titleEl = item.querySelector(config.listingTitle);
-                    if (titleEl && titleEl.innerText) {
-                        title = titleEl.innerText.trim();
-                    }
-                }
-
-                if (!title) return;
-
-                clearTimeout(hoverTimeout);
-                hoverTimeout = setTimeout(() => {
-                    if (lastHoveredItem === title) return;
-                    lastHoveredItem = title;
-
-                    // Find the best element for positioning (image or title)
-                    let targetEl = item.querySelector('img');
-                    if (!targetEl) {
-                        targetEl = item.querySelector(config.listingTitle);
-                    }
-                    if (!targetEl) {
-                        targetEl = item;
-                    }
-
-                    const rect = targetEl.getBoundingClientRect();
-                    showTooltip(title, {
-                        x: rect.left,
-                        y: rect.bottom + 8
-                    });
-                }, SETTINGS.hoverDelay);
-            });
-
-            item.addEventListener('mouseleave', () => {
-                clearTimeout(hoverTimeout);
-            });
+            // Handle enter
+            if (item !== lastHoveredDOMElement) {
+                lastHoveredDOMElement = item;
+                handleMouseEnter(item);
+            }
         });
+
+        document.body.addEventListener('mouseout', (e) => {
+            const item = e.target.closest(config.listingItem);
+            if (!item) return;
+
+            // Handle leave
+            // We only leave if the relatedTarget (where mouse went) is NOT inside the item
+            if (!item.contains(e.relatedTarget)) {
+                if (item === lastHoveredDOMElement) {
+                    handleMouseLeave(item);
+                    lastHoveredDOMElement = null;
+                }
+            }
+        });
+    }
+
+    function handleMouseEnter(item) {
+        let title = '';
+
+        // Önce title attribute'u kontrol et (kategori sayfaları için)
+        if (config.useTitleAttribute && item.hasAttribute('title')) {
+            title = item.getAttribute('title').trim();
+        }
+
+        // Fallback: Gaming Gecesi için nested p tag veya listingTitle seçicisi
+        if (!title) {
+            const titleEl = item.querySelector(config.listingTitle);
+            if (titleEl && titleEl.innerText) {
+                title = titleEl.innerText.trim();
+            }
+        }
+
+        if (!title) return;
+
+        clearTimeout(hoverTimeout);
+        hoverTimeout = setTimeout(() => {
+            if (lastHoveredItem === title) return;
+            lastHoveredItem = title;
+
+            // Find the best element for positioning (image or title)
+            let targetEl = item.querySelector('img');
+            if (!targetEl) {
+                targetEl = item.querySelector(config.listingTitle);
+            }
+            if (!targetEl) {
+                targetEl = item;
+            }
+
+            const rect = targetEl.getBoundingClientRect();
+            showTooltip(title, {
+                x: rect.left,
+                y: rect.bottom + 8
+            });
+        }, SETTINGS.hoverDelay);
+    }
+
+    function handleMouseLeave(item) {
+        clearTimeout(hoverTimeout);
     }
 
     function checkProductWithRetry(attempt) {
