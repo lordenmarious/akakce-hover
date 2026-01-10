@@ -186,6 +186,12 @@
         // Optimization: Reduces memory usage and CPU overhead during DOM mutations (infinite scroll)
 
         document.body.addEventListener('mouseover', (e) => {
+            // Optimization: If we are already interacting with the active element,
+            // skip the expensive closest() call and DOM traversal.
+            if (lastHoveredDOMElement && lastHoveredDOMElement.contains(e.target)) {
+                return;
+            }
+
             const item = e.target.closest(config.listingItem);
             if (!item) return;
 
@@ -197,6 +203,16 @@
         });
 
         document.body.addEventListener('mouseout', (e) => {
+            // Optimization: If we are tracking an element...
+            if (lastHoveredDOMElement && lastHoveredDOMElement.contains(e.target)) {
+                // ...we only care if we are leaving it ENTIRELY.
+                if (!lastHoveredDOMElement.contains(e.relatedTarget)) {
+                    handleMouseLeave(lastHoveredDOMElement);
+                    lastHoveredDOMElement = null;
+                }
+                return;
+            }
+
             const item = e.target.closest(config.listingItem);
             if (!item) return;
 
