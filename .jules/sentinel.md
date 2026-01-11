@@ -1,0 +1,4 @@
+## 2024-05-22 - DOM XSS in Favorites Page
+**Vulnerability:** The favorites page used `innerHTML` to render user-controlled data (`title`, `site`, `url`, `imageUrl`) retrieved from extension storage without any sanitization. This allowed execution of arbitrary JavaScript via crafted favorites data (e.g., `<img src=x onerror=...>`).
+**Learning:** Even internal pages (like extension pages) are vulnerable to XSS if they render data that originated from external websites or can be modified by an attacker. Relying on "trusted sites" is insufficient as product titles can be manipulated or storage can be tampered with.
+**Prevention:** Always sanitize data before inserting it into the DOM with `innerHTML`. Used `escapeHtml` for text content and `safeUrl` for URL attributes. Prefer `textContent` or `innerText` over `innerHTML` whenever possible.
